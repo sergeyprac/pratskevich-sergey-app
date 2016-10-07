@@ -4,9 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class XorFileEncoder {
-    public void endcode(String inputFilePath, String outputFilePath) throws IOException {
-
+public class XorFileEncoder implements FileEncoder {
+    @Override
+    public void encode(String inputFilePath, String outputFilePath) throws IOException {
         FileInputStream fin = new FileInputStream(inputFilePath);
         FileOutputStream fos = new FileOutputStream(outputFilePath);
 
