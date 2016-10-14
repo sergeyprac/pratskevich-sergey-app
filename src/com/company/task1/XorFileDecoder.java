@@ -1,23 +1,25 @@
 package com.company.task1;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class XorFileDecoder implements FileDecoder {
     @Override
     public  String decode(String inputFilePath) throws IOException {
 
-        FileInputStream fin = new FileInputStream(inputFilePath);
+        File input = new File(inputFilePath);
+        FileInputStream in = new FileInputStream(input);
+        BufferedInputStream fin = new BufferedInputStream(in);
+        byte prevByte, nextByte;
+        byte[] decoded = new byte[(int)input.length()];
 
-        byte[] encoded = new byte[fin.available()];
-        byte[] decoded = new byte[fin.available()];
-
-        fin.read(encoded, 0, encoded.length);
-
-        decoded[0] = encoded[0];
-
-        for (int i = 1; i < encoded.length; i++)
-            decoded[i] = (byte) (encoded[i] ^ encoded[i - 1]);
+        decoded[0] = (byte)fin.read();
+        prevByte = decoded[0];
+        nextByte = (byte)fin.read();
+        for (int i = 1; i < decoded.length; i++) {
+            decoded[i] = (byte)(nextByte ^ prevByte);
+            prevByte = nextByte;
+            nextByte = (byte)fin.read();
+        }
         String str = new String(decoded);
         fin.close();
         return str;
