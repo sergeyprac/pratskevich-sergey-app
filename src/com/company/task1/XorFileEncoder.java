@@ -13,14 +13,13 @@ public class XorFileEncoder implements FileEncoder {
         BufferedOutputStream fos = new BufferedOutputStream(os);
         byte prevByte, nextByte;
 
-        prevByte = (byte)fin.read();
-        fos.write(prevByte);
-        if(input.length() > 1) {
-            nextByte = (byte) fin.read();
-            do {
+        if(input.length() > 0) {
+            prevByte = (byte)fin.read();
+            fos.write(prevByte);
+            while ((nextByte = (byte) fin.read()) != -1) {
                 fos.write(nextByte ^ prevByte);
                 prevByte = (byte) (nextByte ^ prevByte);
-            } while ((nextByte = (byte) fin.read()) != -1);
+            }
         }
         fin.close();
         fos.close();

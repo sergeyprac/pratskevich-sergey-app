@@ -16,6 +16,7 @@ public class Main {
         XorFileDecoder decoder = new XorFileDecoder();
         String result = decoder.decode(OUTPUT_FILE_PATH);
 
-        System.out.println(result);
+        if(result != null)
+            System.out.println(result);
     }
 }
