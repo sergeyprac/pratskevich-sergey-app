@@ -2,20 +2,34 @@ package com.company.homework2;
 
 import java.io.Serializable;
 
-public class Vector extends Matrix implements Serializable{
-    public Vector(int n, double []arr) { super(1, n, arr); }
-    public int GetSize(){
-        return super.GetCountRow();
+public class Vector extends Matrix implements Serializable {
+    public Vector(double[] arr) throws WrongSizeExeption {
+        super(1, arr.length, arr);
     }
-    public double GetElement(int num){
-        return super.GetElement(1, num);
+
+    public int getSize() {
+        return super.getCountRow();
     }
-    public void Add(Vector x) { super.Add(x); }
-    public void Transpose() { super.Transpose(); }
-    public void Multiply(Vector x) {
-        Matrix y = x.Copy();
-        y.Transpose();
-        super.Multiply(y);
+
+    public double getElement(int num) {
+        return super.getElement(1, num);
     }
-    public void Print() { super.Print();}
+
+    public void add(Vector x) {
+        super.add(x);
+    }
+
+    public void transpose() {
+        super.transpose();
+    }
+
+    public void multiply(Vector x) {
+        Matrix y = x.copy();
+        y.transpose();
+        super.multiply(y);
+    }
+
+    public void print() {
+        super.print();
+    }
 }
