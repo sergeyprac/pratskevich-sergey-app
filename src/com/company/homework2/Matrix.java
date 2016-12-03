@@ -17,7 +17,7 @@ public class Matrix implements Serializable {
         }
     }
 
-    public Matrix copy() {
+    public Matrix copy() throws WrongSizeExeption {
         double[] arr = new double[countRow * countColumn];
         int numElm = 0;
         for (int i = 0; i < countRow; i++) {
@@ -26,12 +26,12 @@ public class Matrix implements Serializable {
                 numElm++;
             }
         }
-        try {
-            return new Matrix(countRow, countColumn, arr);
-        } catch (WrongSizeExeption e) {
+        //try {
+        return new Matrix(countRow, countColumn, arr);
+        /*} catch (WrongSizeExeption e) {
             System.out.println("Несоответствие размеров матриц");
             return null;
-        }
+        }*/
     }
 
     public int getCountRow() {
@@ -46,39 +46,48 @@ public class Matrix implements Serializable {
         return matrix[row][column];
     }
 
-    public void add(Matrix x) {
-        try {
-            if (countRow != x.getCountRow() || countColumn != x.getCountColumn()) throw new WrongSizeExeption();
-            for (int i = 0; i < countRow; i++) {
-                for (int j = 0; j < countColumn; j++) {
-                    matrix[i][j] += x.getElement(i, j);
-                }
+    public Matrix add(Matrix x) throws WrongSizeExeption {
+        //try {
+        if (countRow != x.getCountRow() || countColumn != x.getCountColumn()) throw new WrongSizeExeption();
+        double[] arr = new double[countColumn * countRow];
+        int k = 0;
+        for (int i = 0; i < countRow; i++) {
+            for (int j = 0; j < countColumn; j++) {
+                arr[k] = matrix[i][j] + x.getElement(i, j);
+                k++;
+                //matrix[i][j] += x.getElement(i, j);
             }
-        } catch (WrongSizeExeption e) {
-            System.out.println("Несоответствие размеров матриц");
         }
+        return new Matrix(countRow, countColumn, arr);
+        /*} catch (WrongSizeExeption e) {
+            System.out.println("Несоответствие размеров матриц");
+        }*/
     }
 
-    public void multiply(Matrix x) {
-        try {
-            if (countColumn != x.getCountRow()) throw new WrongSizeExeption();
-            double[][] arr = new double[countRow][x.getCountColumn()];
-            for (int i = 0; i < countRow; i++) {
-                for (int j = 0; j < x.getCountColumn(); j++) {
-                    arr[i][j] = 0;
-                    for (int k = 0; k < countColumn; k++) {
-                        arr[i][j] += matrix[i][k] * x.getElement(k, j);
-                    }
+    public Matrix multiply(Matrix x) throws WrongSizeExeption {
+        //try {
+        int s = 0;
+        if (countColumn != x.getCountRow()) throw new WrongSizeExeption();
+        //double[][] arr = new double[countRow][x.getCountColumn()];
+        double[] arr = new double[countRow * x.getCountColumn()];
+        for (int i = 0; i < countRow; i++) {
+            for (int j = 0; j < x.getCountColumn(); j++) {
+                arr[s] = 0;
+                for (int k = 0; k < countColumn; k++) {
+                    arr[s] += matrix[i][k] * x.getElement(k, j);
                 }
+                s++;
             }
-            countColumn = x.getCountColumn();
-            matrix = arr;
-        } catch (WrongSizeExeption e) {
-            System.out.println("Несоответствие размеров матриц");
         }
+        return new Matrix(countRow, x.getCountColumn(), arr);
+            /*countColumn = x.getCountColumn();
+            matrix = arr;*/
+        /*} catch (WrongSizeExeption e) {
+            System.out.println("Несоответствие размеров матриц");
+        }*/
     }
 
-    public void transpose() {
+    public Matrix transpose() {
         double[][] arr = new double[countColumn][countRow];
         for (int i = 0; i < countColumn; i++) {
             for (int j = 0; j < countRow; j++) {
@@ -89,6 +98,7 @@ public class Matrix implements Serializable {
         countColumn = countRow;
         countRow = x;
         matrix = arr;
+        return this;
     }
 
     public void print() {

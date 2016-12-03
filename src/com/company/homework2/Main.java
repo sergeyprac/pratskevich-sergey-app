@@ -17,16 +17,26 @@ public class Main {
             matrix1 = new Matrix(2, 3, arr1);
             matrix2 = new Matrix(2, 2, arr2);
         } catch (WrongSizeExeption e) {
-            System.out.println("Несоответствие размеров матриц");
+            System.out.println("wrong size");
         }
         vec1.print();
-        System.out.println("Сложение");
-        vec1.add(vec1);
-        vec1.print();
-        vec1.add(vec2);
-        System.out.println("Умножение");
-        vec1.multiply(vec1);
-        vec1.print();
+        System.out.println("+");
+        try {
+            vec1.add(vec1).print();
+        } catch (WrongSizeExeption e) {
+
+        }
+        try {
+            vec1.add(vec2);
+        } catch (WrongSizeExeption e) {
+            System.out.println("wrong size");
+        }
+        System.out.println("*");
+        try {
+            vec1.multiply(vec1).print();
+        } catch (WrongSizeExeption e) {
+            System.out.println("wrong size");
+        }
         FileOutputStream fos = new FileOutputStream("exeption.out");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(vec1);
@@ -37,13 +47,19 @@ public class Main {
         oos.flush();
         oos.close();
         oin.close();
+        System.out.println();
         matrix1.print();
         System.out.println("Транспонирование");
-        matrix1.transpose();
-        matrix1.print();
-        matrix2.multiply(matrix1);
-        matrix2.print();
-        matrix1.multiply(matrix2);
-        matrix1.print();
+        matrix1.transpose().print();
+        try {
+            matrix2.multiply(matrix1).print();
+        } catch (WrongSizeExeption e) {
+            System.out.println("wrong size");
+        }
+        try {
+            matrix1.multiply(matrix2).print();
+        } catch (WrongSizeExeption e) {
+            System.out.println("wrong size");
+        }
     }
 }

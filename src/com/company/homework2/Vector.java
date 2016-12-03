@@ -15,18 +15,18 @@ public class Vector extends Matrix implements Serializable {
         return super.getElement(1, num);
     }
 
-    public void add(Vector x) {
-        super.add(x);
+    public Matrix add(Vector x) throws WrongSizeExeption {
+        return super.add(x);
     }
 
-    public void transpose() {
-        super.transpose();
+    public Matrix transpose() {
+        return super.transpose();
     }
 
-    public void multiply(Vector x) {
+    public Matrix multiply(Vector x) throws WrongSizeExeption {
         Matrix y = x.copy();
         y.transpose();
-        super.multiply(y);
+        return super.multiply(y);
     }
 
     public void print() {
