@@ -55,7 +55,6 @@ public class Matrix implements Serializable {
     }
 
     public Matrix multiply(Matrix x) throws WrongSizeExeption {
-        //try {
         int s = 0;
         if (countColumn != x.getCountRow()) throw new WrongSizeExeption();
         double[] arr = new double[countRow * x.getCountColumn()];
