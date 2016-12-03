@@ -26,12 +26,7 @@ public class Matrix implements Serializable {
                 numElm++;
             }
         }
-        //try {
         return new Matrix(countRow, countColumn, arr);
-        /*} catch (WrongSizeExeption e) {
-            System.out.println("Несоответствие размеров матриц");
-            return null;
-        }*/
     }
 
     public int getCountRow() {
@@ -47,7 +42,6 @@ public class Matrix implements Serializable {
     }
 
     public Matrix add(Matrix x) throws WrongSizeExeption {
-        //try {
         if (countRow != x.getCountRow() || countColumn != x.getCountColumn()) throw new WrongSizeExeption();
         double[] arr = new double[countColumn * countRow];
         int k = 0;
@@ -55,20 +49,15 @@ public class Matrix implements Serializable {
             for (int j = 0; j < countColumn; j++) {
                 arr[k] = matrix[i][j] + x.getElement(i, j);
                 k++;
-                //matrix[i][j] += x.getElement(i, j);
             }
         }
         return new Matrix(countRow, countColumn, arr);
-        /*} catch (WrongSizeExeption e) {
-            System.out.println("Несоответствие размеров матриц");
-        }*/
     }
 
     public Matrix multiply(Matrix x) throws WrongSizeExeption {
         //try {
         int s = 0;
         if (countColumn != x.getCountRow()) throw new WrongSizeExeption();
-        //double[][] arr = new double[countRow][x.getCountColumn()];
         double[] arr = new double[countRow * x.getCountColumn()];
         for (int i = 0; i < countRow; i++) {
             for (int j = 0; j < x.getCountColumn(); j++) {
@@ -80,11 +69,6 @@ public class Matrix implements Serializable {
             }
         }
         return new Matrix(countRow, x.getCountColumn(), arr);
-            /*countColumn = x.getCountColumn();
-            matrix = arr;*/
-        /*} catch (WrongSizeExeption e) {
-            System.out.println("Несоответствие размеров матриц");
-        }*/
     }
 
     public Matrix transpose() {
