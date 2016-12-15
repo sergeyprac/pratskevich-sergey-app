@@ -127,6 +127,6 @@ public class ArrayStackTest {
     public void testThatThereAreNoPublicFields() {
         Field[] publicFields = stack.getClass().getFields();
         assertEquals("You should encapsulate your logic",
-                     0, publicFields.length);
+                0, publicFields.length);
     }
 }

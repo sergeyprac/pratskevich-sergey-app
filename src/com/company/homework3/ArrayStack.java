@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class ArrayStack<T> implements Stack<T> {
 
     private static final int INITIAL_SIZE = 1;
-    private Object []stack;
+    private Object[] stack;
     private int sizeStack;
 
     public ArrayStack() {
@@ -16,8 +16,8 @@ public class ArrayStack<T> implements Stack<T> {
 
     @Override
     public T push(T item) {
-        if(sizeStack == stack.length){
-            Object []newStack = new Object[2 * sizeStack];
+        if (sizeStack == stack.length) {
+            Object[] newStack = new Object[2 * sizeStack];
             System.arraycopy(stack, 0, newStack, 0, sizeStack);
             stack = newStack;
         }
@@ -27,29 +27,24 @@ public class ArrayStack<T> implements Stack<T> {
 
     @Override
     public T pop() {
-        if(isEmpty()) throw new EmptyStackException();
-        if(sizeStack < stack.length / 4){
-            Object []newStack = new Object[stack.length / 2];
+        if (isEmpty()) throw new EmptyStackException();
+        if (sizeStack < stack.length / 4) {
+            Object[] newStack = new Object[stack.length / 2];
             System.arraycopy(stack, 0, newStack, 0, sizeStack);
             stack = newStack;
         }
-        if(sizeStack != 0)
-            return (T)stack[--sizeStack];
-        return null;
+        return (T) stack[--sizeStack];
     }
 
     @Override
     public T peek() {
-        if(isEmpty()) throw new EmptyStackException();
-        return (T)stack[sizeStack - 1];
+        if (isEmpty()) throw new EmptyStackException();
+        return (T) stack[sizeStack - 1];
     }
 
     @Override
     public boolean isEmpty() {
-        if(sizeStack == 0)
-            return true;
-        else
-            return false;
+        return (sizeStack == 0) ? true : false;
     }
 
     @Override
@@ -62,12 +57,14 @@ public class ArrayStack<T> implements Stack<T> {
         return new StackIterator();
     }
 
-    class StackIterator implements Iterator<T>{
+    class StackIterator implements Iterator<T> {
         private int num = 0;
-        public T next(){
-            return (T)stack[num++];
+
+        public T next() {
+            return (T) stack[num++];
         }
-        public boolean hasNext(){
+
+        public boolean hasNext() {
             return num < sizeStack;
         }
     }
