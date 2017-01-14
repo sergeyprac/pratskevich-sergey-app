@@ -14,12 +14,17 @@ public class ArrayStack<T> implements Stack<T> {
         sizeStack = 0;
     }
 
+    private void ChangeCapacity(int size)
+    {
+        Object[] newStack = new Object[size];
+        System.arraycopy(stack, 0, newStack, 0, sizeStack);
+        stack = newStack;
+    }
+
     @Override
     public T push(T item) {
         if (sizeStack == stack.length) {
-            Object[] newStack = new Object[2 * sizeStack];
-            System.arraycopy(stack, 0, newStack, 0, sizeStack);
-            stack = newStack;
+            ChangeCapacity(2 * sizeStack);
         }
         stack[sizeStack++] = item;
         return item;
@@ -29,9 +34,7 @@ public class ArrayStack<T> implements Stack<T> {
     public T pop() {
         if (isEmpty()) throw new EmptyStackException();
         if (sizeStack < stack.length / 4) {
-            Object[] newStack = new Object[stack.length / 2];
-            System.arraycopy(stack, 0, newStack, 0, sizeStack);
-            stack = newStack;
+            ChangeCapacity(stack.length / 2);
         }
         return (T) stack[--sizeStack];
     }
@@ -44,7 +47,7 @@ public class ArrayStack<T> implements Stack<T> {
 
     @Override
     public boolean isEmpty() {
-        return (sizeStack == 0) ? true : false;
+        return sizeStack == 0;
     }
 
     @Override

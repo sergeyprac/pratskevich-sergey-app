@@ -12,11 +12,10 @@ public class Main {
         XorFileEncoder encoder = new XorFileEncoder();
         encoder.encode(INPUT_FILE_PATH, OUTPUT_FILE_PATH);
 
-
         XorFileDecoder decoder = new XorFileDecoder();
         String result = decoder.decode(OUTPUT_FILE_PATH);
 
-        if(result != null)
+        if (result != null)
             System.out.println(result);
     }
 }
